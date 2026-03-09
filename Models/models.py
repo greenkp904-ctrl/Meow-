@@ -4,9 +4,11 @@ class Customer:
 
     customers = []
 
-    def __init__(self, Customer_ID, Name, DOB, Phone, Email, Address):
+    def __init__(self, Customer_ID, First_Name, Middle_Name, Last_Name, DOB, Phone, Email, Address):
         self.Customer_ID = Customer_ID
-        self.Name = Name
+        self.First_Name = First_Name
+        self.Middle_Name = Middle_Name
+        self.Last_Name = Last_Name
         self.DOB = DOB
         self.Phone = Phone
         self.Email = Email
