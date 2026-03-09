@@ -13,7 +13,7 @@ class Customer:
         self.Phone = Phone
         self.Email = Email
         self.Address = Address
-        print(f"\nUser created : {self.Name}")
+        print(f"\nUser created!")
         self.add_to_records()
 
     def add_to_records(self):
@@ -27,7 +27,7 @@ class Customer:
             print(f"\n{count}th Customer : \n" + 
                         "===================\n\n")
             print("Customer ID : " + i.Customer_ID)
-            print("Name        : " + i.Name)
+            print("Name        : " + i.First_Name + " " + i.Middle_Name + " " + i.Last_Name)
             print("DOB         : " + i.DOB)
             print("Phone       : " + i.Phone)
             print("Email       : " + i.Email)
