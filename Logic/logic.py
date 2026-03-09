@@ -6,6 +6,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Models.models import *
+from Database_Management.setup_db import *
 
 def menu():
     print("\n1. Add User\n" \
@@ -24,13 +25,15 @@ def run_logic():
 
         if(control_var == 1):
              customer_id = input("Enter the Customer ID : ")
-             name = input("Enter the Name : ")
+             first_name = input("Enter the First Name : ")
+             middle_name = input("Enter the Middle Name : ")
+             last_name = input("Enter the Last Name : ")
              dob = input("Enter the Date of Birth : ")
              phone = input("Enter the Phone Number : ")
              email = input("Enter the Email : ")
              address = input("Enter the Address : ")
 
-             customer_entry = Customer(customer_id, name, dob, phone, email, address)
+             customer_entry = Customer(customer_id, first_name, middle_name, last_name, dob, phone, email, address)
 
              print("\nCustomer details entered successfully!!!\n")
 
