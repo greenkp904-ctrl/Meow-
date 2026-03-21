@@ -7,19 +7,18 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Models.models import *
 from Database_Management import *
-
-def menu():
-    print("\n1. Customer Details Management\n" \
-          "2. Transaction Management\n" \
-          "3. Exit\n")
-    return int(input("Enter your choice[1—3] : "))
+from GUI.gui_main import *
 
 def run_logic():
     setup_database()
     print("=================================================\n"
           "============| Chettikkulangara Bank |============\n"
           "=================================================\n\n")
-    control_var = 0
+    
+    app = BankApp()
+    app.mainloop() 
+    
+    '''control_var = 0
 
     while(control_var != 3):
         control_var = menu()
@@ -48,7 +47,7 @@ def run_logic():
             continue
 
         else:
-            print("Type in the correct option, dumbass")
+            print("Type in the correct option, dumbass")'''
 
 if __name__ == "__main__":
     run_logic()

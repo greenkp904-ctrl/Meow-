@@ -1,5 +1,5 @@
 from .setup_db import *
-from .dbManage import *
+from .dbManage import dbManage
 from .member_management.insert_db import *
 from .member_management.select import *
-from .member_management.update import *
+#from .member_management.update import *

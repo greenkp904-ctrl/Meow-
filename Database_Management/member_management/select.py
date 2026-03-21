@@ -10,11 +10,7 @@ def display_customer():
         cursor.execute(query)
         rows = cursor.fetchall()
 
-        if not rows:
-            print("No records found.")
-        else:
-            for row in rows:
-                print(f"ID: {row[0]} | Name: {row[1]} {row[3]} | Phone: {row[5]}")
+        return rows 
     
     except sqlite3.Error as e:
         print(f"Database error : {e}")

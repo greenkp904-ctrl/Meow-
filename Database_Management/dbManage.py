@@ -6,4 +6,5 @@ class dbManage:
         self.cursor = self.conn.cursor()
     
     def close_connection(self):
+        self.conn.commit()
         self.conn.close()
