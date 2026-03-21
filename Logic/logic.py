@@ -9,8 +9,8 @@ from Models.models import *
 from Database_Management import *
 
 def menu():
-    print("\n1. Add User\n" \
-          "2. Show Users\n" \
+    print("\n1. Customer Details Management\n" \
+          "2. Transaction Management\n" \
           "3. Exit\n")
     return int(input("Enter your choice[1—3] : "))
 
