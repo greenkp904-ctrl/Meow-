@@ -1,19 +1,25 @@
 from Database_Management import dbManage
 
 class insert_db(dbManage):
-   
-    def __init__():
-        super.__init__()
+    def __init__(self):
+        # Correct way to call parent constructor
+        super().__init__()
 
-    def insert_customer(obj):
+    def insert_customer(self, obj):
         try:
-            query = '''INSERT INTO Customer (Customer_ID, First_Name, Middle_Name, Last_Name, DOB, Phone, Email, Address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-            data = (obj.Customer_ID, obj.First_Name, obj.Middle_Name, obj.Last_Name, obj.DOB, obj.Phone, obj.Email, obj.Address)
+            # Table name must match your setup_db.py (CUSTOMER)
+            query = '''INSERT INTO CUSTOMER (Customer_ID, First_Name, Middle_Name, Last_Name, DOB, Phone, Email, Address) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+            data = (obj.Customer_ID, obj.First_Name, obj.Middle_Name, obj.Last_Name, 
+                    obj.DOB, obj.Phone, obj.Email, obj.Address)
 
-            super.cursor.execute(query, data)
+            # Use self.cursor inherited from dbManage
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            return 1
         
-        except super.Error as e:
+        except Exception as e:
             print(f"Database error : {e}")
             return 0
-
-        super.close_connection()
+        finally:
+            self.close_connection()
