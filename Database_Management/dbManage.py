@@ -8,3 +8,14 @@ class dbManage:
     def close_connection(self):
         self.conn.commit()
         self.conn.close()
+    
+    def exec_query(self, query, data=()):
+        try:
+            self.cursor.execute(query, data)
+            self.conn.commit()
+            return True
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+            return False
+        finally:
+            self.close_connection()

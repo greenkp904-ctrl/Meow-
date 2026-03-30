@@ -2,7 +2,7 @@
 
 class Customer:
 
-    customers = []
+   # customers = []
 
     def __init__(self, Customer_ID, First_Name, Middle_Name, Last_Name, DOB, Phone, Email, Address):
         self.Customer_ID = Customer_ID
@@ -14,7 +14,9 @@ class Customer:
         self.Email = Email
         self.Address = Address
         print(f"\nUser created!")
-        self.add_to_records()
+
+        
+'''        #self.add_to_records()
 
     def add_to_records(self):
         self.customers.append(self)
@@ -32,5 +34,5 @@ class Customer:
             print("Phone       : " + i.Phone)
             print("Email       : " + i.Email)
             print("Address     : " + i.Address)
-            print("\n===================\n\n")
+            print("\n===================\n\n")'''
     

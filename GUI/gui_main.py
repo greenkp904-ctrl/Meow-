@@ -5,6 +5,8 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from GUI.load_customers import *
+from GUI.insert_customers import *
+
 
 # Set up the appearance
 ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
@@ -16,7 +18,11 @@ class BankApp(ctk.CTk):
 
         # Configure window
         self.title("Chettikkulangara Bank - Admin Dashboard")
-        self.geometry("1000x600")
+
+        if sys.platform == "win32":
+            self.state("zoomed")
+        elif sys.platform.startswith("linux"):
+            self.attributes("-zoomed", True)
 
         # Configure grid layout (1 row, 2 columns)
         self.grid_rowconfigure(0, weight=1)
@@ -70,10 +76,19 @@ class BankApp(ctk.CTk):
         self.cust_tabs.add("View Customers")
         self.cust_tabs.add("Update Customer")
         
+        #=================View Customers=========================
+
         view_customers = self.cust_tabs.tab("View Customers")
 
         self.view_customers_ui = ViewCustomersTab(master=view_customers, fg_color="transparent")
         self.view_customers_ui.pack(fill="both", expand=True)
+
+        #=================Insert Customers=======================
+
+        insert_customers = self.cust_tabs.tab("Add Customer")
+
+        self.insert_customers_ui = InsertCustomersTab(master=insert_customers, fg_color="transparent")
+        self.insert_customers_ui.pack(fill="both", expand=True)
 
 
         # --- Transaction Frame ---
