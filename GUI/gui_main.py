@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from GUI.load_customers import *
 from GUI.insert_customers import *
-
+from GUI.update_customers import UpdateCustomersTab
 
 # Set up the appearance
 ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
@@ -90,8 +90,14 @@ class BankApp(ctk.CTk):
         self.insert_customers_ui = InsertCustomersTab(master=insert_customers, fg_color="transparent")
         self.insert_customers_ui.pack(fill="both", expand=True)
 
+        #=================Insert Customers=======================
 
+        update_customers = self.cust_tabs.tab("Update Customer")
+        self.update_customers_ui = UpdateCustomersTab(master=update_customers, fg_color="transparent")
+        self.update_customers_ui.pack(fill = "both", expand = True)
+     
         # --- Transaction Frame ---
+
         self.transaction_frame = ctk.CTkFrame(self, corner_radius=10)
         self.transaction_frame.grid_rowconfigure(1, weight=1)
         self.transaction_frame.grid_columnconfigure(0, weight=1)
