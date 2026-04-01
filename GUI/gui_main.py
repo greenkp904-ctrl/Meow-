@@ -7,6 +7,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from GUI.load_customers import *
 from GUI.insert_customers import *
 from GUI.update_customers import UpdateCustomersTab
+from GUI.transaction_ui import TransactionTab
+from GUI.account_management import AccountsManagementTab
+from GUI.branch_management_ui import BranchTab
+from GUI.loans_ui import LoansTab
 
 # Set up the appearance
 ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
@@ -46,11 +50,14 @@ class BankApp(ctk.CTk):
         self.btn_transactions.grid(row=2, column=0, padx=20, pady=10)
 
         # Placeholder for future features (Disabled for now)
-        self.btn_accounts = ctk.CTkButton(self.sidebar_frame, text="Accounts (Locked)", state="disabled")
+        self.btn_accounts = ctk.CTkButton(self.sidebar_frame, text="Accounts", command = self.show_account_frame)
         self.btn_accounts.grid(row=3, column=0, padx=20, pady=10)
 
-        self.btn_loans = ctk.CTkButton(self.sidebar_frame, text="Loans (Locked)", state="disabled")
+        self.btn_loans = ctk.CTkButton(self.sidebar_frame, text="Loans", command = self.show_loans_frame)
         self.btn_loans.grid(row=4, column=0, padx=20, pady=10)
+
+        self.btn_branches = ctk.CTkButton(self.sidebar_frame, text = "Branches", command = self.show_branches_frame)
+        self.btn_branches.grid(row = 5, column = 0, padx = 20, pady = 10)
 
         # Bottom Sidebar Button
         self.btn_exit = ctk.CTkButton(self.sidebar_frame, text="Exit", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), command=self.destroy)
@@ -102,10 +109,14 @@ class BankApp(ctk.CTk):
         self.transaction_frame.grid_rowconfigure(1, weight=1)
         self.transaction_frame.grid_columnconfigure(0, weight=1)
 
-        self.trans_header = ctk.CTkLabel(self.transaction_frame, text="Transaction Management", font=ctk.CTkFont(size=24, weight="bold"))
-        self.trans_header.grid(row=0, column=0, padx=20, pady=20, sticky="w")
-        ctk.CTkLabel(self.transaction_frame, text="Deposit / Withdrawal forms will go here...").grid(row=1, column=0)
+        self.transaction_ui = TransactionTab(self.transaction_frame, fg_color = "transparent")
+        self.transaction_ui.grid(row=0, column=0, sticky="nsew")    
+        
+        self.account_frame = AccountsManagementTab(self, corner_radius=10)  
 
+        self.branches_frame = BranchTab(self, corner_radius = 10)
+
+        self.loans_frame = LoansTab(self, corner_radius = 10)
         # ==========================================
         # 3. INITIALIZATION
         # ==========================================
@@ -117,6 +128,9 @@ class BankApp(ctk.CTk):
         """Removes all frames from the grid (hides them)"""
         self.customer_frame.grid_forget()
         self.transaction_frame.grid_forget()
+        self.account_frame.grid_forget()
+        self.branches_frame.grid_forget()
+        self.loans_frame.grid_forget()
 
     def show_customer_frame(self):
         self.hide_all_frames()
@@ -125,6 +139,18 @@ class BankApp(ctk.CTk):
     def show_transaction_frame(self):
         self.hide_all_frames()
         self.transaction_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+
+    def show_account_frame(self):
+        self.hide_all_frames()
+        self.account_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+
+    def show_loans_frame(self):
+        self.hide_all_frames()
+        self.loans_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+
+    def show_branches_frame(self):
+        self.hide_all_frames()
+        self.branches_frame.grid(row = 0, column = 1, padx = 20, pady = 20, sticky = "nsew")
 
 if __name__ == "__main__":
     app = BankApp()
