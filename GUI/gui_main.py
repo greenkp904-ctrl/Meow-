@@ -10,7 +10,8 @@ from GUI.update_customers import UpdateCustomersTab
 from GUI.transaction_ui import TransactionTab
 from GUI.account_management import AccountsManagementTab
 from GUI.branch_management_ui import BranchTab
-from GUI.loans_ui import LoansTab
+from GUI.loan_management_ui import LoansManagementTab
+from GUI.employee_management_tab import EmployeeManagementTab
 
 # Set up the appearance
 ctk.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
@@ -37,19 +38,17 @@ class BankApp(ctk.CTk):
         # ==========================================
         self.sidebar_frame = ctk.CTkFrame(self, width=200, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, sticky="nsew")
-        self.sidebar_frame.grid_rowconfigure(5, weight=1) # Pushes the bottom buttons down
+        self.sidebar_frame.grid_rowconfigure(7, weight=1) 
 
         self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="Chettikkulangara\nBank", font=ctk.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 30))
 
-        # Sidebar Navigation Buttons
         self.btn_customers = ctk.CTkButton(self.sidebar_frame, text="Customers", command=self.show_customer_frame)
         self.btn_customers.grid(row=1, column=0, padx=20, pady=10)
 
         self.btn_transactions = ctk.CTkButton(self.sidebar_frame, text="Transactions", command=self.show_transaction_frame)
         self.btn_transactions.grid(row=2, column=0, padx=20, pady=10)
 
-        # Placeholder for future features (Disabled for now)
         self.btn_accounts = ctk.CTkButton(self.sidebar_frame, text="Accounts", command = self.show_account_frame)
         self.btn_accounts.grid(row=3, column=0, padx=20, pady=10)
 
@@ -57,16 +56,17 @@ class BankApp(ctk.CTk):
         self.btn_loans.grid(row=4, column=0, padx=20, pady=10)
 
         self.btn_branches = ctk.CTkButton(self.sidebar_frame, text = "Branches", command = self.show_branches_frame)
-        self.btn_branches.grid(row = 5, column = 0, padx = 20, pady = 10)
+        self.btn_branches.grid(row = 6, column = 0, padx = 20, pady = 10)
 
-        # Bottom Sidebar Button
+        self.btn_employees = ctk.CTkButton(self.sidebar_frame, text="Employees", command=self.show_employee_frame)
+        self.btn_employees.grid(row=5, column=0, padx=20, pady=10) 
+
         self.btn_exit = ctk.CTkButton(self.sidebar_frame, text="Exit", fg_color="transparent", border_width=2, text_color=("gray10", "#DCE4EE"), command=self.destroy)
-        self.btn_exit.grid(row=6, column=0, padx=20, pady=(10, 20))
+        self.btn_exit.grid(row=7, column=0, padx=20, pady=(10, 20))
 
         # ==========================================
         #2. MAIN WORKSPACE FRAMES
         # ==========================================
-        # We create all frames here, but only place one on the grid at a time.
 
         # --- Customer Frame ---
         self.customer_frame = ctk.CTkFrame(self, corner_radius=10)
@@ -76,7 +76,6 @@ class BankApp(ctk.CTk):
         self.cust_header = ctk.CTkLabel(self.customer_frame, text="Customer Management", font=ctk.CTkFont(size=24, weight="bold"))
         self.cust_header.grid(row=0, column=0, padx=20, pady=20, sticky="w")
         
-        # Adding Tabs inside the Customer Frame (Add, View, Update)
         self.cust_tabs = ctk.CTkTabview(self.customer_frame)
         self.cust_tabs.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
         self.cust_tabs.add("Add Customer")
@@ -97,7 +96,7 @@ class BankApp(ctk.CTk):
         self.insert_customers_ui = InsertCustomersTab(master=insert_customers, fg_color="transparent")
         self.insert_customers_ui.pack(fill="both", expand=True)
 
-        #=================Insert Customers=======================
+        #=================Update Customers=======================
 
         update_customers = self.cust_tabs.tab("Update Customer")
         self.update_customers_ui = UpdateCustomersTab(master=update_customers, fg_color="transparent")
@@ -116,7 +115,9 @@ class BankApp(ctk.CTk):
 
         self.branches_frame = BranchTab(self, corner_radius = 10)
 
-        self.loans_frame = LoansTab(self, corner_radius = 10)
+        self.loans_frame = LoansManagementTab(self, corner_radius = 10)
+
+        self.employee_frame = EmployeeManagementTab(self, corner_radius = 10)
         # ==========================================
         # 3. INITIALIZATION
         # ==========================================
@@ -125,12 +126,12 @@ class BankApp(ctk.CTk):
 
     # --- Navigation Logic ---
     def hide_all_frames(self):
-        """Removes all frames from the grid (hides them)"""
         self.customer_frame.grid_forget()
         self.transaction_frame.grid_forget()
         self.account_frame.grid_forget()
         self.branches_frame.grid_forget()
         self.loans_frame.grid_forget()
+        self.employee_frame.grid_forget()
 
     def show_customer_frame(self):
         self.hide_all_frames()
@@ -151,6 +152,11 @@ class BankApp(ctk.CTk):
     def show_branches_frame(self):
         self.hide_all_frames()
         self.branches_frame.grid(row = 0, column = 1, padx = 20, pady = 20, sticky = "nsew")
+
+    def show_employee_frame(self):
+        self.hide_all_frames()
+        self.employee_frame.grid(row=0, column = 1, padx = 20, pady = 20, sticky = "nsew")
+    
 
 if __name__ == "__main__":
     app = BankApp()

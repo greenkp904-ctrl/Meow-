@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from Database_Management.member_management.insert_db import insert_db
 from Models import *
+from CTkMessagebox import CTkMessagebox
 
 class InsertCustomersTab(ctk.CTkFrame):
 
@@ -98,7 +99,14 @@ class InsertCustomersTab(ctk.CTkFrame):
         status = objnew.insert_customer(new_cust)
 
         if status:
-            print("suxs")
+            CTkMessagebox(title="Success!!!", 
+                          message="Record inserted successfully.", 
+                          icon="check", 
+                          option_1="OK")
         else:
-            print("fail")
+            CTkMessagebox(title="Failed!!!", 
+                          message="Record insertion failed.", 
+                          icon="cancel", 
+                          option_1="Try Again")
+
 
